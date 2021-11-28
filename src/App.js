@@ -1,45 +1,78 @@
 import "./App.css";
-import { useState, useEffect } from "react";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql,
-} from "@apollo/client";
-import { graphql } from "graphql";
+import React, { useState, useRef, useEffect } from "react";
+import { useQuery } from "@apollo/client";
+import { GET_QUOTES } from "./index";
+import { gsap } from "gsap";
 
-const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
-  cache: new InMemoryCache(),
-});
-
-function App() {
+function App(props) {
+  const { loading, error, data } = useQuery(GET_QUOTES);
   const [index, setIndex] = useState(0);
-  const [quotes, setQuotes] = useState("");
-  client
-    .query({
-      query: gql`
-        {
-          authors {
-            id
-            name
-          }
-        }
-      `,
-    })
-    .then((result) => setQuotes(result));
 
+  const boxRef = useRef();
+  const divRef = useRef();
+
+  useEffect(() => {
+    gsap.from(boxRef.current, { y: -20, ease: "elastic", duration: 2 });
+    gsap.from(divRef.current, { y: -20, ease: "elastic", duration: 2 });
+    gsap.to(divRef.current, { y: 0, ease: "elastic", duration: 2 });
+    gsap.to(boxRef.current, { y: -10, ease: "elastic", duration: 2 });
+  });
+  if (loading) return "Loading";
+
+  if (error) return <p>An error occured!</p>;
+
+  const isActive = (quote) => {
+    if (data.quotes[index].id === quote.id) {
+      return {
+        background: "var(--lineactive)",
+        width: "10px",
+        height: `${quote.quote.length / 6}px`,
+      };
+    } else {
+      return {
+        background: "var(--linepassive)",
+        width: "10px",
+        height: `${quote.quote.length / 6}px`,
+      };
+    }
+  };
+
+  /*
+  const handleFindAllSame = () => {
+    let allIndexesOfTheAuthor = data.quotes
+      .map((quote, i) =>
+        quote.author.name === data.quotes[index].author.name ? i : -1
+      )
+      .filter((index) => index !== -1);
+      console.log(allIndexesOfTheAuthor)
+  };
+  */
   return (
-    <ApolloProvider client={client}>
-      <div className="container">
-        <div className="app">
-          <div className="app-header"></div>
-          <div className="app-main"></div>
-          <div className="app-footer"></div>
-        </div>
+    <div className="container">
+      <div className="top" ref={divRef}>
+        {data.quotes.map((quote) => (
+          <div
+            key={quote.id}
+            style={isActive(quote)}
+            onClick={() =>
+              setIndex(data.quotes.findIndex((el) => el.id == quote.id))
+            }
+          ></div>
+        ))}
       </div>
-    </ApolloProvider>
+      <div className="app" ref={boxRef}>
+        <div className="app-header">
+          <h2>{data.quotes[index].author.name}</h2>
+          <p className="book">{data.quotes[index].book}</p>
+          <p className="publisher">{data.quotes[index].publisher}</p>
+        </div>
+        <div className="app-main">
+          <p>{data.quotes[index].quote}</p>
+        </div>
+        <div className="app-footer"></div>
+      </div>
+      <div className="bottom"></div>
+    </div>
   );
 }
 

@@ -1,2 +1,45 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.top {
+  display: flex;
+  justify-content: center;
+}
+.top div {
+  margin: 0rem 0.35rem;
+  transition: all 0.4s ease;
+}
+
+.publisher {
+  font-size: 0.8rem;
+}
+
+.app {
+  color: var(--text);
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  background-color: var(--white2);
+  line-height: 8px;
+}
+
+.app-main p {
+  line-height: 25px;
+  transition: all 0.4s ease;
+}
+
+@media (max-width: 1100px) {
+  .app {
+    width: 80%;
+  }
+
+  .top {
+    width: 100%;
+  }
 }
