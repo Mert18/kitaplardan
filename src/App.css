@@ -34,6 +34,68 @@
   transition: all 0.4s ease;
 }
 
+/* LOADER */
+
+.loading {
+  height: 98vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.orange-spinner {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  animation: orange-loader 1.2s linear infinite;
+  position: relative;
+  overflow: hidden;
+  background: #333333;
+  border-radius: 50%;
+}
+
+.orange-bubble {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #db7b45;
+  position: absolute;
+  animation: bubbleOrange 2s linear infinite;
+}
+
+.black-bubble {
+  display: none;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: #333333;
+  position: absolute;
+  animation: bubbleBlack 1.8s linear infinite;
+}
+
+@keyframes bubbleBlack {
+  0% {
+    top: -170%;
+    left: -170%;
+  }
+  100% {
+    top: 170%;
+    left: 170%;
+  }
+}
+
+@keyframes bubbleOrange {
+  0% {
+    top: -170%;
+    left: -170%;
+  }
+  100% {
+    top: 170%;
+    left: 170%;
+  }
+}
+
 @media (max-width: 1100px) {
   .app {
     width: 80%;

@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_QUOTES } from "./index";
 import { gsap } from "gsap";
+import Loader from "./components/loader";
 
 function App(props) {
   const { loading, error, data } = useQuery(GET_QUOTES);
@@ -17,7 +18,13 @@ function App(props) {
     gsap.to(divRef.current, { y: 0, ease: "elastic", duration: 2 });
     gsap.to(boxRef.current, { y: -10, ease: "elastic", duration: 2 });
   });
-  if (loading) return "Loading";
+  if (loading) {
+    return (
+      <div className="loading">
+        <Loader />
+      </div>
+    );
+  }
 
   if (error) return <p>An error occured!</p>;
 
