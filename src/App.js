@@ -68,6 +68,29 @@ function App(props) {
         ))}
       </div>
       <div className="app" ref={boxRef}>
+        <div className="arrows">
+          <div className="arrow" onClick={() => setIndex(index - 1)}>
+            <img
+              src="/images/iconmonstr-arrow-64.svg"
+              width="30px"
+              height="30px"
+              alt="left arrow"
+            />
+          </div>
+          <div
+            className="arrow"
+            onClick={() => {
+              setIndex(index + 1);
+            }}
+          >
+            <img
+              src="/images/iconmonstr-arrow-32.svg"
+              width="30px"
+              height="30px"
+              alt="left arrow"
+            />
+          </div>
+        </div>
         <div className="app-header">
           <h2>{data.quotes[index].author.name}</h2>
           <p className="book">{data.quotes[index].book}</p>

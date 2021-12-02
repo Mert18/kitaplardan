@@ -5,6 +5,19 @@
   align-items: center;
 }
 
+.arrows {
+  display: flex;
+  justify-content: center;
+}
+
+.arrow {
+  margin: 0rem 1rem;
+}
+
+.arrow:hover {
+  cursor: pointer;
+}
+
 .top {
   display: flex;
   justify-content: center;
