@@ -5,7 +5,7 @@ import { GET_QUOTES } from "./index";
 import { gsap } from "gsap";
 import Loader from "./components/loader";
 
-function App(props) {
+function App() {
   const { loading, error, data } = useQuery(GET_QUOTES);
   const [index, setIndex] = useState(0);
 
