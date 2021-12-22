@@ -44,6 +44,22 @@ function App() {
     }
   };
 
+  const handlePrevious = () => {
+    if (index > 1) {
+      setIndex(index - 1);
+    } else {
+      setIndex(data.quotes.length - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (index < data.quotes.length - 1) {
+      setIndex(index + 1);
+    } else {
+      setIndex(0);
+    }
+  };
+
   /*
   const handleFindAllSame = () => {
     let allIndexesOfTheAuthor = data.quotes
@@ -69,7 +85,7 @@ function App() {
       </div>
       <div className="app" ref={boxRef}>
         <div className="arrows">
-          <div className="arrow" onClick={() => setIndex(index - 1)}>
+          <div className="arrow" onClick={handlePrevious}>
             <img
               src="/images/iconmonstr-arrow-64.svg"
               width="30px"
@@ -77,12 +93,7 @@ function App() {
               alt="left arrow"
             />
           </div>
-          <div
-            className="arrow"
-            onClick={() => {
-              setIndex(index + 1);
-            }}
-          >
+          <div className="arrow" onClick={handleNext}>
             <img
               src="/images/iconmonstr-arrow-32.svg"
               width="30px"
